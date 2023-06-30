@@ -1,6 +1,6 @@
 # I geektechstuff Media Wiki Install Playbook
 
-- hosts: target-server 
+- hosts: targetserver 
   tasks:
     - name: Include Variables 
       include_vars:
