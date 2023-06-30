@@ -21,7 +21,7 @@ m1-terraform-provider-helper install hashicorp/template -v v2.2.0
 
 Created Key vault mediawiki-kv in budget-rg 
 
-Added public key generated locally
+Added public key generated locally to a secret on the keyvault
 
 Accessing vm through ssh keys
 
