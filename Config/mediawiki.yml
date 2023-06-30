@@ -1,0 +1,96 @@
+# I geektechstuff Media Wiki Install Playbook
+
+- hosts: target-server 
+  tasks:
+    - name: Include Variables 
+      include_vars:
+        file: vars.yml
+
+    - name: Install Required Packages 
+      become: true 
+      apt:
+        pkg:
+          - apache2
+          - mysql-server
+          - php
+          - php-mysql 
+          - libapache2-mod-php
+          - php-xml
+          - php-mbstring
+          - php-intl
+          - python3-pip 
+        state: present 
+        update_cache: yes
+
+    - name: Download Media Wiki Tar 
+      get_url:
+        url: https://releases.wikimedia.org/mediawiki/1.37/mediawiki-1.37.1.tar.gz 
+        dest: /tmp
+
+    - name: Create /mediawiki Directory 
+      become: true 
+      file:
+        path: /var/lib/mediawiki 
+        state: directory
+
+    - name: Extract Media Wiki Tar 
+      become: true 
+      unarchive:
+        src: /tmp/mediawiki-1.37.1.tar.gz
+        dest: /var/lib/mediawiki 
+        remote_src: yes
+
+    - name: SymLink for MediaWiki 
+      become: true 
+      file:
+        src: /var/lib/mediawiki/mediawiki-1.37.1 
+        dest: /var/www/html/mediawiki
+        state: link
+
+    - name: Update Apache Enabled Sites 
+      become: true 
+      replace:
+        path: /etc/apache2/sites-enabled/000-default.conf 
+        regexp: 'DocumentRoot \/var\/www\/html$' 
+        replace: 'DocumentRoot /var/www/html/mediawiki'
+
+    - name: Restart Apache Service 
+      become: true 
+      service:
+        name: apache2 
+        state: restarted 
+        enabled: yes
+
+# SQL commands require community. msql to be installed:
+# ansible-galaxy collection install community. mysql
+
+    - name: Pip Pre-Regs for SQL 
+      become: true 
+      pip:
+        name: PyMySQL
+
+    - name: Enable MySQL 
+      become: true 
+      service:
+        name: mysql 
+        state: started 
+        enabled: yes
+
+    - name: Create database for MediaWiki 
+      become: true  
+      become_user: root
+      community.mysql.mysql_db:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        name: "{{ db_name }}" 
+        state: present
+
+    - name: Create MediaWiki DB user 
+      become: true  
+      become_user: root
+      community.mysql.mysql_user:
+        login_unix_socket: /var/run/mysqld/mysqld.sock 
+        state: present
+        name: "{{ db_user_name }}" 
+        password: "{{ db_user_password }}" 
+        priv:
+          'mediawiki.*:ALL,GRANT'
