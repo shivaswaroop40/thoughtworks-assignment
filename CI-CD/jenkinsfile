@@ -1,31 +1,20 @@
 // git branch: 'main', url: 'https://github.com/shivaswaroop40/thoughtworks-assignment.git'
 
 // ansiblePlaybook become: true, becomeUser: 'ansible', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/home/ansible/thoughtworks-assignment/config/mediawiki.yml'
+pipeline: {
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/shivaswaroop40/thoughtworks-assignment.git'
+            }
+        }
 
-stages {
-  stage('checkout') {
-    steps {
-      // One or more steps need to be included within the steps block.
+        stage('deploy') {
+            steps {
+                ansiblePlaybook become: true, becomeUser: 'ansible', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/home/ansible/thoughtworks-assignment/config/mediawiki.yml'
+            }
+        }
     }
-
-    agent any
-
-    tools {
-      git branch: 'main', url: 'https://github.com/shivaswaroop40/thoughtworks-assignment.git'
-    }
-  }
-
-  stage('deploy') {
-    steps {
-      // One or more steps need to be included within the steps block.
-    }
-
-    agent any
-
-    tools {
-      ansiblePlaybook become: true, becomeUser: 'ansible', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/home/ansible/thoughtworks-assignment/config/mediawiki.yml'
-    }
-  }
 
 }
 
