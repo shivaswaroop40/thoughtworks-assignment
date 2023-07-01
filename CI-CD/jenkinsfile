@@ -1,7 +1,9 @@
 // git branch: 'main', url: 'https://github.com/shivaswaroop40/thoughtworks-assignment.git'
 
 // ansiblePlaybook become: true, becomeUser: 'ansible', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/home/ansible/thoughtworks-assignment/config/mediawiki.yml'
-pipeline: {
+
+pipeline {
+    agent any
     stages {
         stage('checkout') {
             steps {
@@ -11,7 +13,7 @@ pipeline: {
 
         stage('deploy') {
             steps {
-                ansiblePlaybook become: true, becomeUser: 'ansible', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/home/ansible/thoughtworks-assignment/config/mediawiki.yml'
+                ansiblePlaybook credentialsId: 'ssh-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/mediawiki-cicd/Config/mediawiki.yml'
             }
         }
     }

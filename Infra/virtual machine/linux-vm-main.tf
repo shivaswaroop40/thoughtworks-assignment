@@ -48,7 +48,7 @@ resource "azurerm_network_security_group" "linux-vm-nsg" {
   }
 
   security_rule {
-    name                       = "AllowHTTP"
+    name                       = "AllowHTTP2"
     description                = "Jenkins Port and github webhook"
     priority                   = 170
     direction                  = "Inbound"

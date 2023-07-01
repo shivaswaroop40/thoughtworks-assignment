@@ -2,23 +2,27 @@
 ## Host Server commands
 Ubuntu ansible installation https://phoenixnap.com/kb/install-ansible-ubuntu-20-04
 ```
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt update
-sudo apt install ansible
-ansible --version
-useradd ansible #adding ansible user
-passwd ansible #configuring password for ansible user
+sudo adduser ansible #adding ansible user
+sudo su
 ```
-
 - Below command addes ansible to sudoers file. But strongly recommended to use "visudo" command if you are aware vi or nano editor. 
 
 ```
-echo "ansible ALL=(ALL) ALL" >> /etc/sudoers
+echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 ```
+
+```
+su ansible
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt update
+sudo apt install ansible -u ansible
+ansible --version
+```
+
 - sed command replaces "PasswordAuthentication no to yes" without editing file
 
 ```
-sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 ssh-keygen #generate an ssh key for public key authentication on the target server
 ssh-copy-id username@<target-server>
 echo "<target server IP>" > /etc/ansible/hosts
@@ -27,16 +31,20 @@ ansible all -m ping
 
 ## Target Server commands
 ```
+sudo adduser ansible #adding ansible user
+sudo su
+```
+```
+echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+```
+```
+su ansible
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
 sudo apt install ansible
 ansible --version
-useradd ansible
-passwd ansible
 ```
-```
-echo "ansible ALL=(ALL) ALL" >> /etc/sudoers
-```
+
 - sed command replaces "PasswordAuthentication no to yes" without editing file
 
 ```
