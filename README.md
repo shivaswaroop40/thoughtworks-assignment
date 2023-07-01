@@ -14,7 +14,7 @@ Reference readme files
 ![Infra Setup](./Infra/infra%20setup.md)
 ## Ansible Setup
 
-![Ansible Setup](./Config/ansible%20setup.md)
+![Ansible Setup](./Config/ansible%20installation.md)
 ## Jenkins Setup
 
 ![Jenkins Setup](./CI-CD/jenkins%20installtion.md)
