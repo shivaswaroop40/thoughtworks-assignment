@@ -6,7 +6,7 @@
 
 ## Workflow Diagram
 
-![](./workflow.png)
+![](./flowchart.png)
 
 Reference readme files
 ## Infra Setup
