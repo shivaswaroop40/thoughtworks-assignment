@@ -23,4 +23,24 @@ sudo systemctl status jenkins
 
 ## Jenkins Setup
 
-- 
+- Login to Jenkins with default credentials
+
+- Install all recommended plugins
+
+- Install GitHub plugin for SCM polling
+
+- Configure GitHub plugin in global settings with project URL and PAT
+
+- Install Ansible plugin
+
+- Configure Ansible plugin with the installation path
+
+- Create a global credential with ssh key of target server for ansible host key authentication
+
+- Create new item(pipeline) with git checkout and ansible playbook steps, and enable GitHub SCM polling.
+
+- Create webhook in github with the jenkins server ```jenkins-ip/github-webhook/``` for push events
+
+- Make changes in GitHub to create a build in Jenkins
+
+- Once build is complete, visit http://target-server-ip:8080 to view Mediawiki server.
