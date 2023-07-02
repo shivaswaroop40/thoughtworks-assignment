@@ -56,7 +56,8 @@ ansible --version
 ```
 -------------
 
-Documented Errors while using CentOS for Ansible host:
+```Documented Errors while using CentOS for Ansible host:```
+
 ``` 
 CentOS-8 - AppStream 70 B/s | 38 B 00:00
 Error: Failed to download metadata for repo 'AppStream': Cannot prepare internal mirrorlist: No URLs in mirrorlist 
