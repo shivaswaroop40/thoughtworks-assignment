@@ -1,6 +1,7 @@
 # Assignment Readme File
 
-This document contains an explanation of the assignment's overall flow and the infrastructure's architecture diagram. The following are the screenshots of the same. 
+This document contains an explanation of the assignment's overall flow and the infrastructure's architecture diagram. 
+The following are the screenshots of the same. 
 
 ## Architecture Diagram of the infrastructure
 
