@@ -6,7 +6,7 @@
       include_vars:
         file: vars.yml
 
-    - name: Install Required Packages 
+    - name: Install Required Packages on target vm
       become: true 
       apt:
         pkg:
