@@ -97,6 +97,7 @@
 
 
     - name: Copy LocalSettings.php to target machine
+      become: true 
       ansible.builtin.copy:
         src: /var/lib/jenkins/workspace/mediawiki-cicd/Config/LocalSettings.php
         dest: /var/www/html/mediawiki
