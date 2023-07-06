@@ -22,7 +22,7 @@
         state: present 
         update_cache: yes
 
-    - name: Download Media Wiki Tar 
+    - name: Download Media Wiki Tar File
       get_url:
         url: https://releases.wikimedia.org/mediawiki/1.37/mediawiki-1.37.1.tar.gz 
         dest: /tmp
